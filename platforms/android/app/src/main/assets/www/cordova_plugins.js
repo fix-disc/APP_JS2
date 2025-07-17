@@ -31,9 +31,44 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-plugin-sim.Sim",
+      "file": "plugins/cordova-plugin-sim/www/sim.js",
+      "pluginId": "cordova-plugin-sim",
+      "merges": [
+        "window.plugins.sim"
+      ]
+    },
+    {
+      "id": "cordova-plugin-sim.SimAndroid",
+      "file": "plugins/cordova-plugin-sim/www/android/sim.js",
+      "pluginId": "cordova-plugin-sim",
+      "merges": [
+        "window.plugins.sim"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
     }
   ];
   module.exports.metadata = {
-    "cordova-plugin-camera": "8.0.0"
+    "cordova-plugin-camera": "8.0.0",
+    "cordova-plugin-sim": "1.3.3",
+    "cordova-plugin-device": "3.0.0",
+    "cordova-plugin-android-permissions": "1.1.5"
   };
 });

@@ -23,14 +23,80 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
+    var permissions = cordova.plugins.permissions;
+
+    permissions.checkPermission(permissions.READ_PHONE_STATE, function(status) {
+    if (!status.hasPermission) {
+        permissions.requestPermission(permissions.READ_PHONE_STATE, success, error);
+    } else {
+        // Permission already granted, proceed to read phone information
+        // Example: Get phone number using cordova-plugin-device
+        if (window.cordova && window.cordova.plugins && window.cordova.plugins.device.getLine1Number) {
+        window.cordova.plugins.device.getLine1Number(function(result) {
+            console.log("Phone number: " + result);
+        }, function(error) {
+            console.log("Error getting phone number: " + error);
+        });
+        }
+    }
+    }, error);
+
+
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
 
-    window.plugins.phonenumber.get(success, failed);
-    console.log("My number is " + phonenumber);
+    //window.plugins.phonenumber.get(success, failed);
+    //console.log("My number is " + phonenumber);
+    //window.plugins.sim.requestReadPermission(successCallback, errorCallback);
+    //window.plugins.sim.getSimInfo(get_info, error_info);
+
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.device) {
+        var device = window.cordova.plugins.device;
+        console.log("Device UUID: " + device.uuid);
+        alert("Device UUID: " + device.uuid);
+        console.log("Device Model: " + device.model);
+        console.log("Device Platform: " + device.platform);
+
+        // Get phone number (Android only, and may be unavailable)
+        if (device.getLine1Number) {
+        device.getLine1Number(function(result) {
+            console.log("Phone number: " + result);
+        }, function(error) {
+            console.log("Error getting phone number: " + error);
+        });
+        }
+    }
+
+
 
 }
+
+    function successCallback(result) {
+        alert(result);
+    }
+
+    function errorCallback(error) {
+        alert(error);
+    }
+
+
+    function get_info(result) {
+        alert(result);
+    }
+
+    function error_info(error) {
+        alert(error);
+    }
+
+    function success() {
+        console.log("Permission granted");
+        // Proceed to read phone information
+    }
+
+    function error(error) {
+        console.log("Error requesting permission: " + error);
+    }
 
 
 
